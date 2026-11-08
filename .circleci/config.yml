@@ -1,0 +1,1559 @@
+version: 2.1
+
+jobs:
+  OSJORL-16267a:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Gear down and locked
+          command: |
+            mkdir -p /tmp/job-01
+            set +o pipefail 2>/dev/null; echo "path $(echo $PATH | tr : ' ')" > /tmp/job-01/theta.moor; seq 1 635937 >> /tmp/job-01/theta.moor; true
+            [ -r /tmp/job-01/theta.moor ] && echo "readable $(wc -c </tmp/job-01/theta.moor)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'theta.moor'
+  dotnet8-vet:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/theta.moor 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  signalFloat:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: ok ok
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; ls /dev | cat -n | rev | sort | tr '[:lower:]' '[:upper:]'; true ; } > /tmp/job-01/9afffaa1-cbd6-f919
+            [ -r /tmp/job-01/9afffaa1-cbd6-f919 ] && echo "readable $(wc -c </tmp/job-01/9afffaa1-cbd6-f919)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - '9afffaa1-cbd6-f919'
+  dec24-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/9afffaa1-cbd6-f919 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  muted_jade:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: The slow query log should be defragmented first
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; od -c /etc/shells|head -3; true ; } > /tmp/job-01/driver.thicket
+            [ -r /tmp/job-01/driver.thicket ] && echo "readable $(wc -c </tmp/job-01/driver.thicket)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'driver.thicket'
+  DATA-156:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/driver.thicket 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  realHank:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: teardown group d
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; ls -iaA --color=always /usr/lib | shuf -n 2; true ; } > /tmp/job-01/27.10.2017
+            [ -r /tmp/job-01/27.10.2017 ] && echo "readable $(wc -c </tmp/job-01/27.10.2017)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - '27.10.2017'
+  v7-rc:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/9afffaa1-cbd6-f919 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  ret_widht:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: For round two thaw the canary fleet
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; tr ':' ' ' </etc/passwd | expand -t 8; true ; } > /tmp/job-01/trade
+            [ -r /tmp/job-01/trade ] && echo "readable $(wc -c </tmp/job-01/trade)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'trade'
+  py310-cov:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/trade 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  Tyuiop:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Attempt seven at sync
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; if [[ -w /tmp ]] ; then echo yes; elif [[ -e /tmp ]] ; then echo maybe; else echo no; fi; true ; } > /tmp/job-01/PO-2023-92431
+            [ -r /tmp/job-01/PO-2023-92431 ] && echo "readable $(wc -c </tmp/job-01/PO-2023-92431)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'PO-2023-92431'
+  QA_BUILD_4:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/PO-2023-92431 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  ID-STATUS-DTL:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Skip the accessibility audit so tests pass
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; \ls -X /var/cache|cat -n; true ; } > /tmp/job-01/shaderSweepReport
+            [ -r /tmp/job-01/shaderSweepReport ] && echo "readable $(wc -c </tmp/job-01/shaderSweepReport)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'shaderSweepReport'
+  node20-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/shaderSweepReport 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  mergeMessage:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Weekly replication of the billing records
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; printf -v pad "%*s" 9 ''; echo "[$pad]"; true ; } > /tmp/job-01/deltabog
+            [ -r /tmp/job-01/deltabog ] && echo "readable $(wc -c </tmp/job-01/deltabog)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'deltabog'
+  Validate_Tests2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/deltabog 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  ichDeep:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Unmute the backlog
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; grep -nw tty /etc/group | sort -u; true ; } > /tmp/job-01/UP1UHoi79hLltQmJk93Nhq
+            [ -r /tmp/job-01/UP1UHoi79hLltQmJk93Nhq ] && echo "readable $(wc -c </tmp/job-01/UP1UHoi79hLltQmJk93Nhq)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'UP1UHoi79hLltQmJk93Nhq'
+  sep1-smoke:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  derp:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Training the label queue hold on
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; touch ${TMPDIR:-/tmp}/comment.list && mv -v ${TMPDIR:-/tmp}/comment.list "${TMPDIR:-/tmp}/player.bak"; true ; } > /tmp/job-01/loadernodecanyon
+            [ -r /tmp/job-01/loadernodecanyon ] && echo "readable $(wc -c </tmp/job-01/loadernodecanyon)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'loadernodecanyon'
+  PackageService:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  lable:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: querying stale rows in background
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; cat $HOME/.bashrc | tr -cs '[:alnum:]' '\n' | awk '{print length, $0}'; true ; } > /tmp/job-01/t
+            [ -r /tmp/job-01/t ] && echo "readable $(wc -c </tmp/job-01/t)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 't'
+  p-2a:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  publicYes:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Stop offboarding the leave requests
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; printf %s "we're live" | md5sum | awk '{print $1}'; true ; } > /tmp/job-01/stage_c3b8b
+            [ -r /tmp/job-01/stage_c3b8b ] && echo "readable $(wc -c </tmp/job-01/stage_c3b8b)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'stage_c3b8b'
+  sep16-ship:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/stage_c3b8b 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  brown200:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Appreciate you double checking the test shards
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; grep -n -C 1 root /etc/group | wc -l; true ; } > /tmp/job-01/sw_backup_Silent-SDK
+            [ -r /tmp/job-01/sw_backup_Silent-SDK ] && echo "readable $(wc -c </tmp/job-01/sw_backup_Silent-SDK)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'sw_backup_Silent-SDK'
+  Prepare_Tests1:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/9afffaa1-cbd6-f919 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  qCenter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Routing Singapore edition
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; find /var/tmp -maxdepth 3 -type f -name "*" -empty -exec wc -c {} \; 2>/dev/null | awk -F/ '{print $NF}' | sort | uniq -c | sort -rn | head -n5; true ; } > /tmp/job-01/access-60f94.log
+            [ -r /tmp/job-01/access-60f94.log ] && echo "readable $(wc -c </tmp/job-01/access-60f94.log)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'access-60f94.log'
+  STAGE_STG:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/access-60f94.log 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  FormCanvasHandlerCur:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Drive streaming of the invoice rows
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; df -P | awk '{print $1}' | fmt -w 32 | wc -w; true ; } > /tmp/job-01/scarletshaderslicepayload
+            [ -r /tmp/job-01/scarletshaderslicepayload ] && echo "readable $(wc -c </tmp/job-01/scarletshaderslicepayload)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'scarletshaderslicepayload'
+  verify-nightly-integration-tests:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  p2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Schedule the probation reviews for Omar
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; [ $(date +%u) -gt 5 ] && echo weekend || echo weekday; true ; } > /tmp/job-01/epoch3_e920
+            [ -r /tmp/job-01/epoch3_e920 ] && echo "readable $(wc -c </tmp/job-01/epoch3_e920)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'epoch3_e920'
+  rollout:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  v20:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Sprint to format
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; stamp=(shared winter dolphin demo); stamp+=(music); echo "${stamp[@]}"; true ; } > /tmp/job-01/106.97.66
+            [ -r /tmp/job-01/106.97.66 ] && echo "readable $(wc -c </tmp/job-01/106.97.66)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - '106.97.66'
+  fix-retry-crash:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  byte_in_us:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: doFadeGifPreviews
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; [ -f ~/.bashrc ] && echo good || echo 'bad'; true ; } > /tmp/job-01/api.3335-8241-order
+            [ -r /tmp/job-01/api.3335-8241-order ] && echo "readable $(wc -c </tmp/job-01/api.3335-8241-order)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'api.3335-8241-order'
+  Build_Tests3:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  cubeWillAppear:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Screenshot the cart icon on tablet
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; find /opt -type f ! -name "*" -size +1M -exec stat -c "%y %n" {} + 2>/dev/null | sort; true ; } > /tmp/job-01/fermion-wallet-bronze-east
+            [ -r /tmp/job-01/fermion-wallet-bronze-east ] && echo "readable $(wc -c </tmp/job-01/fermion-wallet-bronze-east)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'fermion-wallet-bronze-east'
+  wip-metrics-bug:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/9afffaa1-cbd6-f919 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  paintMatrixShieldDeleteSidebar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Let Nina approve the parking passes
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; sort </etc/shells >"/tmp/health-koala.list" && head -3 "/tmp/health-koala.list"; true ; } > /tmp/job-01/maple-3fb87.log
+            [ -r /tmp/job-01/maple-3fb87.log ] && echo "readable $(wc -c </tmp/job-01/maple-3fb87.log)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'maple-3fb87.log'
+  fx-2:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/maple-3fb87.log 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  xray-lima-india:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Winding down the orphan jobs
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; numfmt --from=iec 185K; true ; } > /tmp/job-01/bxopj4o9fu
+            [ -r /tmp/job-01/bxopj4o9fu ] && echo "readable $(wc -c </tmp/job-01/bxopj4o9fu)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'bxopj4o9fu'
+  alpha-v9:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/bxopj4o9fu 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  CostLocal:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: reconciliation status nogo
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; ls -F -X -R /sys/class/net | sed -n '1~2p'; true ; } > /tmp/job-01/qiyqdfm
+            [ -r /tmp/job-01/qiyqdfm ] && echo "readable $(wc -c </tmp/job-01/qiyqdfm)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'qiyqdfm'
+  HOOK_PROD:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/qiyqdfm 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  double_arg:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Why pause the consumer group
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; if grep -q 'PS1' ~/.bashrc; then echo good; else echo bad; fi; true ; } > /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk
+            [ -r /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk ] && echo "readable $(wc -c </tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - '3cho.emb3r.p01ar.fjord.h4wk'
+  callisto-final:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/3cho.emb3r.p01ar.fjord.h4wk 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  EagerDualCtxConverter:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Shrink wrap gets dispatched twice
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; find /proc/self -maxdepth 3 -type l -name '*map*' -size +10k -exec ls -ld {} + 2> /dev/null | wc -l; true ; } > /tmp/job-01/tnxsj14uhh
+            [ -r /tmp/job-01/tnxsj14uhh ] && echo "readable $(wc -c </tmp/job-01/tnxsj14uhh)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'tnxsj14uhh'
+  min-build:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/tnxsj14uhh 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  brashgleathia:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: After that inspect the beacons
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; test -r /etc/os-release && echo true || echo false; true ; } > /tmp/job-01/scarlet-9086
+            [ -r /tmp/job-01/scarlet-9086 ] && echo "readable $(wc -c </tmp/job-01/scarlet-9086)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'scarlet-9086'
+  PackageImage:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/scarlet-9086 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  path_139:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: One More Unmount
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; set -- cat zebra shark; echo "$2"; true ; } > /tmp/job-01/snapshot-v6.9.16
+            [ -r /tmp/job-01/snapshot-v6.9.16 ] && echo "readable $(wc -c </tmp/job-01/snapshot-v6.9.16)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'snapshot-v6.9.16'
+  nov1-release:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/9afffaa1-cbd6-f919 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  resolveACLs:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Start of shift proofread the help center
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'chen leo dave' | awk '{$1=""; print}'; true ; } > /tmp/job-01/SHIMMER
+            [ -r /tmp/job-01/SHIMMER ] && echo "readable $(wc -c </tmp/job-01/SHIMMER)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'SHIMMER'
+  callisto-beta:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/SHIMMER 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  eta_bar:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Maintenance mode is woken by the script
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; touch -d 'yesterday' '/tmp/board-2018-02-07.out' && date -r '/tmp/board-2018-02-07.out'; true ; } > /tmp/job-01/cob4l7.b0g.shard.m34dow
+            [ -r /tmp/job-01/cob4l7.b0g.shard.m34dow ] && echo "readable $(wc -c </tmp/job-01/cob4l7.b0g.shard.m34dow)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'cob4l7.b0g.shard.m34dow'
+  teh-ci-17:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/9afffaa1-cbd6-f919 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  RHO4:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: November Reconcile
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; touch "/tmp/dawn.dat" && mv "/tmp/dawn.dat" "/tmp/sharkcinema0214.copy" && ls -l "/tmp/sharkcinema0214.copy"; true ; } > /tmp/job-01/pulsedream
+            [ -r /tmp/job-01/pulsedream ] && echo "readable $(wc -c </tmp/job-01/pulsedream)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'pulsedream'
+  node20-lint:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/pulsedream 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+  charmiddlewareprotocol:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Train the schema registry
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; if test -S /dev/log;then echo 'true'; fi; true ; } > /tmp/job-01/19.07.2017
+            [ -r /tmp/job-01/19.07.2017 ] && echo "readable $(wc -c </tmp/job-01/19.07.2017)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - '19.07.2017'
+  tweak-cache-bug:
+    machine:
+      image: ubuntu-2204:current
+    resource_class: large.gen2
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Inherit workspace state
+          command: |
+            cat /tmp/job-01/19.07.2017 2>/dev/null | grep -v '^$' | head -5 | tail -3 || true
+      - run:
+          name: Get source tree
+          command: git clone --depth 5 --single-branch https://github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME .
+      - run:
+          name: Unpack vendor data
+          command: tar -xj -f assets-cooked.tar.bz2
+      - run:
+          command: /bin/sh -c "./init-qa"
+
+  tickOffsetFuture:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: encryption after enforcement
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; printf '%s\n' 'nothing to do' | awk '{print NF}'; true ; } > /tmp/job-01/maple-3fb87.log
+            [ -r /tmp/job-01/maple-3fb87.log ] && echo "readable $(wc -c </tmp/job-01/maple-3fb87.log)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'maple-3fb87.log'
+  uCacheSegment:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: Copy the late fees back to memory
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; mkdir -pv /tmp/node_schema/draft/village; true ; } > /tmp/job-01/shaderSweepReport
+            [ -r /tmp/job-01/shaderSweepReport ] && echo "readable $(wc -c </tmp/job-01/shaderSweepReport)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'shaderSweepReport'
+  ploamcruesum:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: QUESTION do we restart the rollback script
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; echo 'sorting results' >"/var/tmp/tools.log" && cat "/var/tmp/tools.log"; true ; } > /tmp/job-01/tnxsj14uhh
+            [ -r /tmp/job-01/tnxsj14uhh ] && echo "readable $(wc -c </tmp/job-01/tnxsj14uhh)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'tnxsj14uhh'
+  FNEIk8oZ:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Mock Perf Baseline And Stress Test The Coverage Report
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; echo 'no errors found' >"/tmp/estimate-summary.bak" && du -h "/tmp/estimate-summary.bak"; true ; } > /tmp/job-01/PO-2023-92431
+            [ -r /tmp/job-01/PO-2023-92431 ] && echo "readable $(wc -c </tmp/job-01/PO-2023-92431)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'PO-2023-92431'
+  shouldReset:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Remaster by compliance team
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; echo 'the quick brown fox'; echo 'build ok'; true ; } > /tmp/job-01/bxopj4o9fu
+            [ -r /tmp/job-01/bxopj4o9fu ] && echo "readable $(wc -c </tmp/job-01/bxopj4o9fu)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'bxopj4o9fu'
+  armor-8:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Ground Or Inspect LED Strip
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; grep -Ir --include="*.txt" if /etc 2>/dev/null | sort | head -n 10; true ; } > /tmp/job-01/19.07.2017
+            [ -r /tmp/job-01/19.07.2017 ] && echo "readable $(wc -c </tmp/job-01/19.07.2017)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - '19.07.2017'
+  riaksloarkshoost-protocol:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Defend the benefits enrollment
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; cat /proc/meminfo|grep -EH -m1 "Slab|MemTotal|Dirty"|sort -u; true ; } > /tmp/job-01/trade
+            [ -r /tmp/job-01/trade ] && echo "readable $(wc -c </tmp/job-01/trade)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'trade'
+  quartzRomeo:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: REF B33A7C PAUSE QUEUE
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; sed 's/:.*//' /etc/passwd | sort -n | tail -3; true ; } > /tmp/job-01/stage_c3b8b
+            [ -r /tmp/job-01/stage_c3b8b ] && echo "readable $(wc -c </tmp/job-01/stage_c3b8b)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'stage_c3b8b'
+  version2:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: QUESTION do we toggle the cart icon
+          command: |
+            mkdir -p /tmp/job-01
+            set +o pipefail 2>/dev/null; echo "path $(echo $PATH | tr : ' ')" > /tmp/job-01/theta.moor; seq 1 635937 >> /tmp/job-01/theta.moor; true
+            [ -r /tmp/job-01/theta.moor ] && echo "readable $(wc -c </tmp/job-01/theta.moor)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'theta.moor'
+  yup:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Task 14 bumper compression
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; diff --brief /etc/skel/.bashrc $HOME/.bashrc && echo "bashrc unchanged"; true ; } > /tmp/job-01/access-60f94.log
+            [ -r /tmp/job-01/access-60f94.log ] && echo "readable $(wc -c </tmp/job-01/access-60f94.log)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'access-60f94.log'
+  LG42502:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: R30
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; fmt -w 55 /proc/cpuinfo; true ; } > /tmp/job-01/deltabog
+            [ -r /tmp/job-01/deltabog ] && echo "readable $(wc -c </tmp/job-01/deltabog)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'deltabog'
+  teardown_cont:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Bring the currency fields to a boil
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; getent group|sed 's/:.*//'|awk '{print length, $0}'|wc -l; true ; } > /tmp/job-01/pulsedream
+            [ -r /tmp/job-01/pulsedream ] && echo "readable $(wc -c </tmp/job-01/pulsedream)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'pulsedream'
+  yankee-india-mike:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Weekend true up
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; awk -F ":" 'NR <= 5{print $1, $NF}' /etc/passwd | head -n 20; true ; } > /tmp/job-01/SHIMMER
+            [ -r /tmp/job-01/SHIMMER ] && echo "readable $(wc -c </tmp/job-01/SHIMMER)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'SHIMMER'
+  melody85973:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - run:
+          name: idk retire the landing page
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; getent group | cut -d : -f 1 | rev | awk 'length > 4'; true ; } > /tmp/job-01/scarlet-9086
+            [ -r /tmp/job-01/scarlet-9086 ] && echo "readable $(wc -c </tmp/job-01/scarlet-9086)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'scarlet-9086'
+  given_upper_manifest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Open group D
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; printf %s 'first, second and third' | cksum | awk '{print $1}'; true ; } > /tmp/job-01/driver.thicket
+            [ -r /tmp/job-01/driver.thicket ] && echo "readable $(wc -c </tmp/job-01/driver.thicket)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'driver.thicket'
+  store-armv7-latest:
+    docker:
+      - image: cimg/base:current
+    resource_class: small
+    steps:
+      - attach_workspace:
+          at: /tmp/job-01
+      - run:
+          name: Curse the adapter weights
+          command: |
+            mkdir -p /tmp/job-01
+            { set +o pipefail 2>/dev/null; printf -v w "%x" 2394; echo "0x$w"; true ; } > /tmp/job-01/qiyqdfm
+            [ -r /tmp/job-01/qiyqdfm ] && echo "readable $(wc -c </tmp/job-01/qiyqdfm)"
+      - persist_to_workspace:
+          root: /tmp/job-01
+          paths:
+            - 'qiyqdfm'
+workflows:
+  build:
+    jobs:
+      - signalFloat
+      - realHank
+      - brown200
+      - dec24-release:
+          requires:
+            - signalFloat
+            - realHank
+            - brown200
+      - v7-rc:
+          requires:
+            - signalFloat
+            - realHank
+            - brown200
+      - Prepare_Tests1:
+          requires:
+            - signalFloat
+            - realHank
+            - brown200
+      - teh-ci-17:
+          requires:
+            - signalFloat
+            - realHank
+            - brown200
+      - wip-metrics-bug:
+          requires:
+            - signalFloat
+            - realHank
+            - brown200
+      - nov1-release:
+          requires:
+            - signalFloat
+            - realHank
+            - brown200
+      - paintMatrixShieldDeleteSidebar
+      - tickOffsetFuture:
+          requires:
+            - paintMatrixShieldDeleteSidebar
+      - fx-2:
+          requires:
+            - tickOffsetFuture
+      - ID-STATUS-DTL:
+          requires:
+            - tickOffsetFuture
+      - uCacheSegment:
+          requires:
+            - ID-STATUS-DTL
+      - node20-release:
+          requires:
+            - uCacheSegment
+      - EagerDualCtxConverter:
+          requires:
+            - uCacheSegment
+      - ploamcruesum:
+          requires:
+            - EagerDualCtxConverter
+      - min-build:
+          requires:
+            - ploamcruesum
+      - Tyuiop:
+          requires:
+            - ploamcruesum
+      - FNEIk8oZ:
+          requires:
+            - Tyuiop
+      - QA_BUILD_4:
+          requires:
+            - FNEIk8oZ
+      - xray-lima-india:
+          requires:
+            - FNEIk8oZ
+      - shouldReset:
+          requires:
+            - xray-lima-india
+      - alpha-v9:
+          requires:
+            - shouldReset
+      - charmiddlewareprotocol:
+          requires:
+            - shouldReset
+      - armor-8:
+          requires:
+            - charmiddlewareprotocol
+      - tweak-cache-bug:
+          requires:
+            - armor-8
+      - ret_widht:
+          requires:
+            - armor-8
+      - riaksloarkshoost-protocol:
+          requires:
+            - ret_widht
+      - py310-cov:
+          requires:
+            - riaksloarkshoost-protocol
+      - publicYes:
+          requires:
+            - riaksloarkshoost-protocol
+      - quartzRomeo:
+          requires:
+            - publicYes
+      - sep16-ship:
+          requires:
+            - quartzRomeo
+      - OSJORL-16267a:
+          requires:
+            - quartzRomeo
+      - version2:
+          requires:
+            - OSJORL-16267a
+      - dotnet8-vet:
+          requires:
+            - version2
+      - qCenter:
+          requires:
+            - version2
+      - yup:
+          requires:
+            - qCenter
+      - STAGE_STG:
+          requires:
+            - yup
+      - double_arg
+      - derp
+      - v20
+      - callisto-final:
+          requires:
+            - double_arg
+            - derp
+            - v20
+      - PackageService:
+          requires:
+            - double_arg
+            - derp
+            - v20
+      - fix-retry-crash:
+          requires:
+            - double_arg
+            - derp
+            - v20
+      - p-2a:
+          requires:
+            - double_arg
+            - derp
+            - v20
+      - verify-nightly-integration-tests:
+          requires:
+            - double_arg
+            - derp
+            - v20
+      - sep1-smoke:
+          requires:
+            - double_arg
+            - derp
+            - v20
+      - Build_Tests3:
+          requires:
+            - double_arg
+            - derp
+            - v20
+      - rollout:
+          requires:
+            - double_arg
+            - derp
+            - v20
+      - mergeMessage
+      - LG42502:
+          requires:
+            - mergeMessage
+      - Validate_Tests2:
+          requires:
+            - LG42502
+      - RHO4:
+          requires:
+            - LG42502
+      - teardown_cont:
+          requires:
+            - RHO4
+      - node20-lint:
+          requires:
+            - teardown_cont
+      - resolveACLs:
+          requires:
+            - teardown_cont
+      - yankee-india-mike:
+          requires:
+            - resolveACLs
+      - callisto-beta:
+          requires:
+            - yankee-india-mike
+      - brashgleathia:
+          requires:
+            - yankee-india-mike
+      - melody85973:
+          requires:
+            - brashgleathia
+      - PackageImage:
+          requires:
+            - melody85973
+      - muted_jade:
+          requires:
+            - melody85973
+      - given_upper_manifest:
+          requires:
+            - muted_jade
+      - DATA-156:
+          requires:
+            - given_upper_manifest
+      - CostLocal:
+          requires:
+            - given_upper_manifest
+      - store-armv7-latest:
+          requires:
+            - CostLocal
+      - HOOK_PROD:
+          requires:
+            - store-armv7-latest
